@@ -1,7 +1,11 @@
-﻿User can see all of the bookmarks in reverse chronological order.
+﻿
+
 User can access a bookmark through a URL with a short code, allowing them to share bookmarks.
+
 When a user accesses a bookmark, the access is recorded with the bookmark and the timestamp.
-Users can create an account, log in, and log out.
+
 A logged in user can create, edit, and create bookmarks that are tied to themselves.
+
 A logged in user can not edit or delete a bookmark created by another user.
+
 Be able to update and delete existing bookmarks

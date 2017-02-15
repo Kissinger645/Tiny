@@ -2,8 +2,40 @@
     ViewBag.Title = "Home Page";
 }
 <div class="container">
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
 
+        @foreach (var link in ViewBag.AllLinks)
+        {
+            <tr>
+                <td>
+                    @link.Title
+                </td>
+                <td>
+                    @link.Description
+                </td>
+                <td>
+                    @link.Created
+                </td>
+                <td>
+                    @link.shortUrl
+                    @Html.ActionLink("Go", "Details", "Link", new { id = link.Id }, new { @class = "read-more" })
+                </td>
+            </tr>
+        }
 
-
-
+    </table>
 </div>
