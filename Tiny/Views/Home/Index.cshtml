@@ -31,8 +31,7 @@
                     @link.Created
                 </td>
                 <td>
-                    @link.ShortUrl
-                    @Html.ActionLink("Go", "Details", "Link", new { id = link.Id }, new { @class = "read-more" })
+                    <a href="@link.Url">@link.ShortUrl</a>
                 </td>
             </tr>
         }

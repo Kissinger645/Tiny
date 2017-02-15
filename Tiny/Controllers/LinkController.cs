@@ -19,24 +19,6 @@ namespace Tiny.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Route("l/{ShortUrl}")]
-        public ActionResult Details(string shortUrl)
-        {
-            Link link = db.Links.Where(l => l.ShortUrl == shortUrl).FirstOrDefault();
-            if (link == null)
-            {
-                return HttpNotFound();
-            }
-            var userId = User.Identity.GetUserId();
-            var linkId = link.Id;
-            Click click = new Click();
-            click.Clicks++;
-            click.TimeStamp = DateTime.Now;
-            click.Id = linkId;
-            db.Click.Add(click);
-            return View(link);
-        }
-
         // GET: Link
         public ActionResult Index()
         {
@@ -56,6 +38,24 @@ namespace Tiny.Controllers
                 shortUrl = BitConverter.ToString(result);
             }
             return shortUrl.Replace("-", "").Substring(0, 5);
+        }
+
+        [Route("l/{ShortUrl}")]
+        public ActionResult ReRoute(string shortUrl)
+        {
+            Link link = db.Links.Where(l => l.ShortUrl == shortUrl).FirstOrDefault();
+            if (link == null)
+            {
+                return HttpNotFound();
+            }
+            Click click = new Click();
+            var userId = User.Identity.GetUserId();
+            var linkId = link.Id;
+            click.Id = linkId;
+            click.Clicks++;
+            click.TimeStamp = DateTime.Now;
+            db.Clicks.Add(click);
+            return new RedirectResult(link.Url);
         }
 
         // GET: Link/Details/5

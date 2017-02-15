@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201702150114072_initial1.Designer.cs">
       <DependentUpon>201702150114072_initial1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702150252555_clicks.cs" />
+    <Compile Include="Migrations\201702150252555_clicks.Designer.cs">
+      <DependentUpon>201702150252555_clicks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Click.cs" />
@@ -282,10 +286,14 @@
     <Content Include="Views\Link\Details.cshtml" />
     <Content Include="Views\Link\Edit.cshtml" />
     <Content Include="Views\Link\Index.cshtml" />
+    <Content Include="Views\Click\Create.cshtml" />
+    <Content Include="Views\Click\Delete.cshtml" />
+    <Content Include="Views\Click\Details.cshtml" />
+    <Content Include="Views\Click\Edit.cshtml" />
+    <Content Include="Views\Click\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Click\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -301,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702150114072_initial1.resx">
       <DependentUpon>201702150114072_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702150252555_clicks.resx">
+      <DependentUpon>201702150252555_clicks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

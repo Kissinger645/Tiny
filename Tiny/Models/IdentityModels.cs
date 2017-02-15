@@ -31,5 +31,7 @@ namespace Tiny.Models
         }
 
         public System.Data.Entity.DbSet<Tiny.Models.Link> Links { get; set; }
+
+        public System.Data.Entity.DbSet<Tiny.Models.Click> Clicks { get; set; }
     }
 }
