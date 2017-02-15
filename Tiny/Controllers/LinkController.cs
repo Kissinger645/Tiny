@@ -55,6 +55,7 @@ namespace Tiny.Controllers
             click.Clicks++;
             click.TimeStamp = DateTime.Now;
             db.Clicks.Add(click);
+            db.SaveChanges();
             return new RedirectResult(link.Url);
         }
 
