@@ -5,6 +5,9 @@
     <table class="table">
         <tr>
             <th>
+                Owner
+            </th>
+            <th>
                 Title
             </th>
             <th>
@@ -21,6 +24,9 @@
         @foreach (var link in ViewBag.AllLinks)
         {
             <tr>
+                <td>
+                    @link.UserName
+                </td>
                 <td>
                     @link.Title
                 </td>
