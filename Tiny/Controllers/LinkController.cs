@@ -19,6 +19,24 @@ namespace Tiny.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Route("l/{ShortUrl}")]
+        public ActionResult Details(string shortUrl)
+        {
+            Link link = db.Links.Where(l => l.ShortUrl == shortUrl).FirstOrDefault();
+            if (link == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            var linkId = link.Id;
+            Click click = new Click();
+            click.Clicks++;
+            click.TimeStamp = DateTime.Now;
+            click.Id = linkId;
+            db.Click.Add(click);
+            return View(link);
+        }
+
         // GET: Link
         public ActionResult Index()
         {
