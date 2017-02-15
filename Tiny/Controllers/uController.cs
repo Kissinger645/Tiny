@@ -14,16 +14,19 @@ namespace Tiny.Controllers
         // GET: u
         public ActionResult Index()
         {
+            ViewBag.AllLinks = db.Links.Where(l => l.Public == true).OrderByDescending(link => link.Created);
             return View();
         }
 
-        [Route("u/{userName}")]
-        public ActionResult Index(string userName)
+        [Route("u/{user}")]
+        public ActionResult Detail(string userName)
         {
             ApplicationUser user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
             string userId = user.Id;
 
-            ViewBag.UserLinks = db.Links.Where(l => l.Owner.UserName == userName).ToList();
+            ViewBag.UserLinks = db.Links.Where(l => (l.OwnerId == userId) &&
+            (l.Public == true))
+            .ToList();
 
             return View(user);
         }
