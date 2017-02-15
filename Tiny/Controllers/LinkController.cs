@@ -51,7 +51,7 @@ namespace Tiny.Controllers
             Click click = new Click();
             var userId = User.Identity.GetUserId();
             var linkId = link.Id;
-            click.Id = linkId;
+            click.LinkId = linkId;
             click.Clicks++;
             click.TimeStamp = DateTime.Now;
             db.Clicks.Add(click);
