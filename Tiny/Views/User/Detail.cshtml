@@ -1,6 +1,8 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Detail";
 }
+
 <div class="container">
     <table class="table">
         <tr>
@@ -21,7 +23,7 @@
             </th>
         </tr>
 
-        @foreach (var link in ViewBag.AllLinks)
+        @foreach (var link in ViewBag.UserLinks)
         {
             <tr>
                 <td>

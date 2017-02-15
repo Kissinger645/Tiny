@@ -200,7 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\uController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -292,8 +292,8 @@
     <Content Include="Views\Click\Details.cshtml" />
     <Content Include="Views\Click\Edit.cshtml" />
     <Content Include="Views\Click\Index.cshtml" />
-    <Content Include="Views\u\Index.cshtml" />
-    <Content Include="Views\u\Detail.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
