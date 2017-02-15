@@ -14,6 +14,7 @@ using Tiny.Models;
 
 namespace Tiny.Controllers
 {
+    [Authorize]
     public class LinkController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -21,8 +22,8 @@ namespace Tiny.Controllers
         // GET: Link
         public ActionResult Index()
         {
-            var links = db.Links.Include(l => l.Owner);
-            ViewBag.MyLinks = links.OrderByDescending(b => b.Created).ToList();
+            var userId = User.Identity.GetUserId();
+            var links = db.Links.Include(b => b.Owner).Where(b => b.Owner.Id == userId);
             return View(links.ToList());
         }
         static string Encrypt256(string input)
@@ -90,7 +91,11 @@ namespace Tiny.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Link link = db.Links.Find(id);
+            var userId = User.Identity.GetUserId();
+            Link link = db.Links
+                .Where(b => b.OwnerId == userId)
+                .Where(b => b.Id == id)
+                .FirstOrDefault();
             if (link == null)
             {
                 return HttpNotFound();
