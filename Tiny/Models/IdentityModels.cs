@@ -29,5 +29,7 @@ namespace Tiny.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Tiny.Models.Link> Links { get; set; }
     }
 }
