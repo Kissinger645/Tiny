@@ -4,6 +4,7 @@
 }
 
 <div class="container">
+    <h2>My Public Links</h2>
     <table class="table">
         <tr>
             <th>
@@ -20,6 +21,9 @@
             </th>
             <th>
                 Link
+            </th>
+            <th>
+                Like
             </th>
         </tr>
 
@@ -41,8 +45,60 @@
                 <td>
                     <a href="/l/@link.ShortUrl">/l/@link.ShortUrl</a>
                 </td>
+
+                <td>@Html.ActionLink("Like", "Like", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })</td>
+
             </tr>
         }
+    </table>
 
+    <h2>My Favorites</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+            <th>
+                Like
+            </th>
+        </tr>
+        @foreach (var link in ViewBag.MyFavs)
+        {
+            <tr>
+                <td>
+                    <a href="/u/@link.Link.UserName">@link.Link.UserName</a>
+                </td>
+                <td>
+                    @link.Link.Title
+                </td>
+                <td>
+                    @link.Link.Description
+                </td>
+                <td>
+                    @link.Link.Created
+                </td>
+                <td>
+                    <a href="/l/@link.Link.ShortUrl">/l/@link.Link.ShortUrl</a>
+                </td>
+
+                <td>
+                    @Html.ActionLink("Unlike", "Unlike", new { id = link.Link.Id }, new { @class = "btn btn-primary btn-large" })
+                </td>
+
+            </tr>
+        }
     </table>
 </div>

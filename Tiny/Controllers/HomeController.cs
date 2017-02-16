@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Tiny.Models;
@@ -18,18 +20,27 @@ namespace Tiny.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Like(int linkid)
         {
-            ViewBag.Message = "Your application description page.";
+            Link link = db.Links.Find(linkid);
+            if (link == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            var linkId = db.Links.Where(l => l.Id == linkid).FirstOrDefault().Id;
 
-            return View();
+            Like like = new Like
+            {
+                LikerId = userId,
+                LinkId = linkId
+
+            };
+            db.Likes.Add(like);
+            db.SaveChanges();
+            return RedirectToAction("Likes");
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

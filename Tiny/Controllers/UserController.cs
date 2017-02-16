@@ -28,6 +28,8 @@ namespace Tiny.Controllers
             (l.Public == true))
             .ToList();
 
+            ViewBag.MyFavs = db.Likes.Where(l => l.LikerId == userId).ToList();
+
             return View(user);
         }
     }

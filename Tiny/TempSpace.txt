@@ -1,0 +1,8 @@
+﻿ToDo
+Change like button to unlike
+
+A user should be able to click a like button for any publicly visible bookmark
+A user should be able to see a list of all bookmarks they have liked on their profile page
+A user should not be able to like a bookmark more than once
+A user should be able to unlike a bookmark
+        

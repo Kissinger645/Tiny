@@ -26,6 +26,54 @@ namespace Tiny.Controllers
             var links = db.Links.Include(b => b.Owner).Where(b => b.Owner.Id == userId);
             return View(links.ToList());
         }
+
+        public ActionResult Likes()
+        {
+            var userId = User.Identity.GetUserId();
+            var links = db.Likes.Include(b => b.Liker).Where(b => b.LikerId == userId);
+            ViewBag.MyFavs = links;
+            return View(links.ToList());
+        }
+
+        
+        public ActionResult Like(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var linkId = db.Links.Where(l => l.Id == id).FirstOrDefault().Id;
+
+            Like like = new Like
+            {
+                LikerId = userId,
+                LinkId = linkId
+
+            };
+            db.Likes.Add(like);
+            db.SaveChanges();
+            return RedirectToAction("Home");
+        }
+       
+        public ActionResult Unlike(int id)
+        {
+            
+            Link link = db.Links.Find(id);
+            if (link == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            var linkId = db.Links.Where(l => l.Id == id).FirstOrDefault().Id;
+
+            Like like = new Like
+            {
+                LikerId = userId,
+                LinkId = linkId
+
+            };
+            db.Likes.Remove(like);
+            db.SaveChanges();
+            return RedirectToAction("Home");
+        }
+
         static string Encrypt256(string input)
         {
             string shortUrl;

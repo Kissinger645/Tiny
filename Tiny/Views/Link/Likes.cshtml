@@ -1,7 +1,10 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Likes";
 }
-<h2>All Public Links</h2>
+
+<h2>My Favorites</h2>
+
 <div class="container">
     <table class="table">
         <tr>
@@ -21,11 +24,11 @@
                 Link
             </th>
             <th>
-                Like
+                Unlike
             </th>
         </tr>
 
-        @foreach (var link in ViewBag.AllLinks)
+        @foreach (var link in ViewBag.MyFavs)
         {
             <tr>
                 <td>
@@ -43,13 +46,11 @@
                 <td>
                     <a href="/l/@link.ShortUrl">/l/@link.ShortUrl</a>
                 </td>
-                
+           
                 <td>
-                    @Html.ActionLink("Like", "Like", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })
+                    @Html.ActionLink("Unlike", "Unlike", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })
                 </td>
-                
             </tr>
         }
-
-    </table>
-</div>
+        </table>
+    </div>
