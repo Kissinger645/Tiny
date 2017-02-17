@@ -1,8 +1,48 @@
-﻿ToDo
-Change like button to unlike
-
-A user should be able to click a like button for any publicly visible bookmark
-A user should be able to see a list of all bookmarks they have liked on their profile page
-A user should not be able to like a bookmark more than once
-A user should be able to unlike a bookmark
+﻿
         
+using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Tiny.Models;
+
+namespace Tiny.Controllers
+{
+    public class HomeController : Controller
+    {
+        
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult Index()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Like(int linkid)
+        {
+            Link link = db.Links.Find(linkid);
+            if (link == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            var linkId = db.Links.Where(l => l.Id == linkid).FirstOrDefault().Id;
+
+            Like like = new Like
+            {
+                LikerId = userId,
+                LinkId = linkId
+
+            };
+            db.Likes.Add(like);
+            db.SaveChanges();
+            return RedirectToAction("Likes","Link");
+        }
+
+    }
+}

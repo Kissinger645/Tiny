@@ -24,6 +24,7 @@ namespace Tiny.Controllers
         {
             var userId = User.Identity.GetUserId();
             var links = db.Links.Include(b => b.Owner).Where(b => b.Owner.Id == userId);
+            
             return View(links.ToList());
         }
 
@@ -31,49 +32,39 @@ namespace Tiny.Controllers
         {
             var userId = User.Identity.GetUserId();
             var links = db.Likes.Include(b => b.Liker).Where(b => b.LikerId == userId);
-            ViewBag.MyFavs = links;
-            return View(links.ToList());
+            ViewBag.AllLinks = db.Links.Where(l => l.Public == true).OrderByDescending(link => link.Created);
+            ViewBag.MyFavs = links.ToList();
+            return View();
         }
-
         
         public ActionResult Like(int id)
         {
             var userId = User.Identity.GetUserId();
-            var linkId = db.Links.Where(l => l.Id == id).FirstOrDefault().Id;
-
-            Like like = new Like
-            {
-                LikerId = userId,
-                LinkId = linkId
-
-            };
-            db.Likes.Add(like);
-            db.SaveChanges();
-            return RedirectToAction("Home");
-        }
-       
-        public ActionResult Unlike(int id)
-        {
             
-            Link link = db.Links.Find(id);
-            if (link == null)
+            bool liked = db.Likes.Where(l => l.LinkId == id && l.LikerId == userId).Any();
+            ViewBag.liked = liked;
+            if (liked == false)
             {
-                return HttpNotFound();
+                var linkId = db.Links.Where(l => l.Id == id).FirstOrDefault().Id;
+                Like like = new Like
+                {
+                    LikerId = userId,
+                    LinkId = id
+
+                };
+                db.Likes.Add(like);
+                db.SaveChanges();
             }
-            var userId = User.Identity.GetUserId();
-            var linkId = db.Links.Where(l => l.Id == id).FirstOrDefault().Id;
-
-            Like like = new Like
+            else
             {
-                LikerId = userId,
-                LinkId = linkId
-
-            };
-            db.Likes.Remove(like);
-            db.SaveChanges();
-            return RedirectToAction("Home");
+                var like = db.Likes
+                    .Where(l => l.LinkId == id && l.LikerId == userId).FirstOrDefault();
+                db.Likes.Remove(like);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Likes", "Link");
         }
-
+             
         static string Encrypt256(string input)
         {
             string shortUrl;

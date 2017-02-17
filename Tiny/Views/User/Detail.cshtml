@@ -46,7 +46,9 @@
                     <a href="/l/@link.ShortUrl">/l/@link.ShortUrl</a>
                 </td>
 
-                <td>@Html.ActionLink("Like", "Like", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })</td>
+                <td>
+                    @Html.ActionLink("Like", "Like", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })
+                </td>
 
             </tr>
         }
@@ -95,9 +97,15 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Unlike", "Unlike", new { id = link.Link.Id }, new { @class = "btn btn-primary btn-large" })
+                    @if (ViewBag.liked == false)
+                    {
+                        @Html.ActionLink("Unlike", "Like", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Like", "Like", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })
+                    }
                 </td>
-
             </tr>
         }
     </table>

@@ -1,55 +1,13 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<h2>All Public Links</h2>
-<div class="container">
-    <table class="table">
-        <tr>
-            <th>
-                User
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Created
-            </th>
-            <th>
-                Link
-            </th>
-            <th>
-                Like
-            </th>
-        </tr>
-
-        @foreach (var link in ViewBag.AllLinks)
-        {
-            <tr>
-                <td>
-                    <a href="/u/@link.UserName">@link.UserName</a>
-                </td>
-                <td>
-                    @link.Title
-                </td>
-                <td>
-                    @link.Description
-                </td>
-                <td>
-                    @link.Created
-                </td>
-                <td>
-                    <a href="/l/@link.ShortUrl">/l/@link.ShortUrl</a>
-                </td>
-                
-                <td>
-                    @Html.ActionLink("Like", "Like", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-large" })
-                </td>
-                
-            </tr>
-        }
-
-    </table>
+    
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2"><h6>Welcome to Tiny.</h6></div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-1"></div>
 </div>
